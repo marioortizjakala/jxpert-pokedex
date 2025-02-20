@@ -1,5 +1,4 @@
-import { CSSProperties, useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import bug from "./assets/bug.svg";
 import dark from "./assets/dark.svg";
 import dragon from "./assets/dragon.svg";
@@ -19,49 +18,7 @@ import rock from "./assets/rock.svg";
 import steel from "./assets/steel.svg";
 import water from "./assets/water.svg";
 
-interface CustomCSSProperties extends CSSProperties {
-  "--color-type"?: string;
-}
-
-type Icons = {
-  [key: string]: string;
-};
-
-type Regions = {
-  [key: string]: {
-    offset: number;
-    limit: number;
-  };
-};
-
-type ApiResult = {
-  results: { url: string }[];
-};
-
-type Result = {
-  id: number;
-  name: string;
-  types: {
-    type: {
-      name: string;
-    };
-  }[];
-  sprites: {
-    other: {
-      "official-artwork": {
-        front_default: string;
-      };
-    };
-  };
-  stats: {
-    base_stat: number;
-    stat: {
-      name: string;
-    };
-  }[];
-};
-
-const icons: Icons = {
+const icons: any = {
   bug,
   dark,
   dragon,
@@ -82,7 +39,7 @@ const icons: Icons = {
   water,
 };
 
-const regions: Regions = {
+const regions: any = {
   kanto: {
     offset: 0,
     limit: 151,
@@ -123,8 +80,8 @@ const regions: Regions = {
 
 export const App = () => {
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<Result[]>([]);
-  const [finalResult, setFinalResult] = useState<Result[]>([]);
+  const [result, setResult] = useState<any>([]);
+  const [finalResult, setFinalResult] = useState<any>([]);
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("kanto");
   const [showRegions, setShowRegions] = useState(false);
@@ -133,7 +90,7 @@ export const App = () => {
     const getData = async () => {
       setLoading(true);
 
-      const { results }: ApiResult = await fetch(
+      const { results }: any = await fetch(
         `https://pokeapi.co/api/v2/pokemon?offset=${regions[region].offset}&limit=${regions[region].limit}`
       ).then((res) => res.json());
 
@@ -254,7 +211,7 @@ export const App = () => {
           {result.length > 0 && (
             <>
               {finalResult.map((res) => {
-                const customStyles: CustomCSSProperties = {
+                const customStyles: any = {
                   "--color-type": `var(--color-${res.types[0].type.name}`,
                 };
 
