@@ -17,6 +17,8 @@ import psychic from './assets/psychic.svg';
 import rock from './assets/rock.svg';
 import steel from './assets/steel.svg';
 import water from './assets/water.svg';
+import { getByRegion } from './core/application/pokemon.service';
+import { Pokemon, Region, regions } from './core/domain/pokemon.model';
 
 const icons: any = {
   bug,
@@ -39,70 +41,27 @@ const icons: any = {
   water,
 };
 
-const regions: any = {
-  kanto: {
-    offset: 0,
-    limit: 151,
-  },
-  johto: {
-    offset: 151,
-    limit: 100,
-  },
-  hoenn: {
-    offset: 251,
-    limit: 135,
-  },
-  sinnoh: {
-    offset: 386,
-    limit: 107,
-  },
-  unova: {
-    offset: 494,
-    limit: 155,
-  },
-  kalos: {
-    offset: 649,
-    limit: 72,
-  },
-  alola: {
-    offset: 721,
-    limit: 88,
-  },
-  galar: {
-    offset: 809,
-    limit: 96,
-  },
-  paldea: {
-    offset: 905,
-    limit: 120,
-  },
-};
-
 export const App = () => {
-  //services -> pokemon.services.getAll
-  //
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>([]);
-  const [finalResult, setFinalResult] = useState<any>([]);
+  const [result, setResult] = useState<Pokemon[]>([]);
+  const [finalResult, setFinalResult] = useState<Pokemon[]>([]);
   const [query, setQuery] = useState('');
-  const [region, setRegion] = useState('kanto');
+  const [region, setRegion] = useState<Region>('kanto');
   const [showRegions, setShowRegions] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
+      if (loading) return;
       setLoading(true);
-
-      const { results }: any = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?offset=${regions[region].offset}&limit=${regions[region].limit}`
-      ).then((res) => res.json());
-
-      const result = await Promise.all(
-        results?.map(
-          async ({ url }) => await fetch(url).then((res) => res.json())
-        )
-      );
-      setResult(result);
-      setLoading(false);
+      setResult([]);
+      try {
+        const result = await getByRegion(region);
+        setResult(result || []);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     };
     getData();
   }, [region]);
@@ -110,13 +69,12 @@ export const App = () => {
   useEffect(() => {
     setFinalResult(
       result.filter(
-        (res) =>
+        (res: Pokemon) =>
           res.name.includes(query) ||
           !!res.types.find((type) => type.type.name.startsWith(query))
       )
     );
   }, [result, query]);
-
   return (
     <div className="layout">
       <header className="header">
@@ -177,18 +135,20 @@ export const App = () => {
               </svg>
             </button>
             <ol className={`dropdown__list ${!showRegions ? 'hide' : ''}`}>
-              {Object.keys(regions).map((key) => (
-                <li
-                  key={key}
-                  className={region === key ? 'active' : ''}
-                  onClick={() => {
-                    setRegion(key);
-                    setShowRegions(false);
-                  }}
-                >
-                  {key}
-                </li>
-              ))}
+              {(Object.keys(regions) as Region[]).map((key: Region) => {
+                return (
+                  <li
+                    key={key}
+                    className={region === key ? 'active' : ''}
+                    onClick={() => {
+                      setRegion(key);
+                      setShowRegions(false);
+                    }}
+                  >
+                    {key}
+                  </li>
+                );
+              })}
             </ol>
           </div>
         </section>
