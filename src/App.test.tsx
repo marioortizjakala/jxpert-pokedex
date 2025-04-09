@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { App } from './App';
 import { beforeEach, describe, expect, Mock, test, vi } from 'vitest';
+import { userEvent } from '@testing-library/user-event';
 
 const mockData = {
   results: [
@@ -71,7 +72,7 @@ describe('App Component', () => {
     });
 
     // Mock the second API response (individual Pokemon details)
-    (fetch as Mock).mockResolvedValueOnce({
+    (fetch as Mock).mockResolvedValue({
       json: () => Promise.resolve(pokemonData[0]),
     });
 
@@ -115,6 +116,7 @@ describe('App Component', () => {
       expect(screen.queryByText('No results')).not.toBeInTheDocument();
     });
 
+    //userEvent.type -> todo
     fireEvent.change(screen.getByPlaceholderText('Search a Pokémon...'), {
       target: { value: 'bul' },
     });
@@ -131,6 +133,7 @@ describe('App Component', () => {
       expect(screen.queryByText('No results')).not.toBeInTheDocument();
     });
 
+    //userEvent.type -> todo
     fireEvent.change(screen.getByPlaceholderText('Search a Pokémon...'), {
       target: { value: 'xyz' },
     });
@@ -138,16 +141,20 @@ describe('App Component', () => {
     expect(screen.getByText('No results')).toBeInTheDocument();
   });
 
-  //   test('handles region dropdown interaction', async () => {
+  //   test.only('handles region dropdown interaction', async () => {
   //     render(<App />);
+
+  //     await waitFor(() => {
+  //       expect(screen.queryByText('No results')).not.toBeInTheDocument();
+  //     });
 
   //     expect(screen.getByRole('button')).toHaveTextContent('kanto');
 
-  //     fireEvent.click(screen.getByRole('button'));
+  //     await userEvent.click(screen.getByRole('button'));
 
   //     expect(screen.getByText('johto')).toBeInTheDocument();
 
-  //     fireEvent.click(screen.getByText('johto'));
+  //     await userEvent.click(screen.getByText('johto'));
 
   //     expect(screen.getByRole('button')).toHaveTextContent('johto');
   //   });

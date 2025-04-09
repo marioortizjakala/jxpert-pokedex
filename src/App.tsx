@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
-import bug from "./assets/bug.svg";
-import dark from "./assets/dark.svg";
-import dragon from "./assets/dragon.svg";
-import electric from "./assets/electric.svg";
-import fairy from "./assets/fairy.svg";
-import fighting from "./assets/fighting.svg";
-import fire from "./assets/fire.svg";
-import flying from "./assets/flying.svg";
-import ghost from "./assets/ghost.svg";
-import grass from "./assets/grass.svg";
-import ground from "./assets/ground.svg";
-import ice from "./assets/ice.svg";
-import normal from "./assets/normal.svg";
-import poison from "./assets/poison.svg";
-import psychic from "./assets/psychic.svg";
-import rock from "./assets/rock.svg";
-import steel from "./assets/steel.svg";
-import water from "./assets/water.svg";
+import { useEffect, useState } from 'react';
+import bug from './assets/bug.svg';
+import dark from './assets/dark.svg';
+import dragon from './assets/dragon.svg';
+import electric from './assets/electric.svg';
+import fairy from './assets/fairy.svg';
+import fighting from './assets/fighting.svg';
+import fire from './assets/fire.svg';
+import flying from './assets/flying.svg';
+import ghost from './assets/ghost.svg';
+import grass from './assets/grass.svg';
+import ground from './assets/ground.svg';
+import ice from './assets/ice.svg';
+import normal from './assets/normal.svg';
+import poison from './assets/poison.svg';
+import psychic from './assets/psychic.svg';
+import rock from './assets/rock.svg';
+import steel from './assets/steel.svg';
+import water from './assets/water.svg';
 
 const icons: any = {
   bug,
@@ -79,11 +79,13 @@ const regions: any = {
 };
 
 export const App = () => {
+  //services -> pokemon.services.getAll
+  //
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>([]);
   const [finalResult, setFinalResult] = useState<any>([]);
-  const [query, setQuery] = useState("");
-  const [region, setRegion] = useState("kanto");
+  const [query, setQuery] = useState('');
+  const [region, setRegion] = useState('kanto');
   const [showRegions, setShowRegions] = useState(false);
 
   useEffect(() => {
@@ -95,7 +97,7 @@ export const App = () => {
       ).then((res) => res.json());
 
       const result = await Promise.all(
-        results.map(
+        results?.map(
           async ({ url }) => await fetch(url).then((res) => res.json())
         )
       );
@@ -174,11 +176,11 @@ export const App = () => {
                 />
               </svg>
             </button>
-            <ol className={`dropdown__list ${!showRegions ? "hide" : ""}`}>
+            <ol className={`dropdown__list ${!showRegions ? 'hide' : ''}`}>
               {Object.keys(regions).map((key) => (
                 <li
                   key={key}
-                  className={region === key ? "active" : ""}
+                  className={region === key ? 'active' : ''}
                   onClick={() => {
                     setRegion(key);
                     setShowRegions(false);
@@ -212,7 +214,7 @@ export const App = () => {
             <>
               {finalResult.map((res) => {
                 const customStyles: any = {
-                  "--color-type": `var(--color-${res.types[0].type.name}`,
+                  '--color-type': `var(--color-${res.types[0].type.name}`,
                 };
 
                 return (
@@ -223,7 +225,7 @@ export const App = () => {
                   >
                     <header className="head">
                       <div className="head__section">
-                        <p>#{res.id.toString().padStart(3, "0")}</p>
+                        <p>#{res.id.toString().padStart(3, '0')}</p>
                       </div>
                       <div className="head__section">
                         <img
@@ -240,7 +242,7 @@ export const App = () => {
                     </header>
                     <img
                       className="avatar"
-                      src={res.sprites.other["official-artwork"].front_default}
+                      src={res.sprites.other['official-artwork'].front_default}
                     />
                     <section className="main-content">
                       <h3 className="name">{res.name}</h3>
