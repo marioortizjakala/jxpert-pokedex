@@ -1,24 +1,18 @@
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 import { App } from './App';
 import { beforeEach, describe, expect, Mock, test, vi } from 'vitest';
 import { userEvent } from '@testing-library/user-event';
+import { getByRegion } from './core/application/pokemon.service';
 
-const mockData = {
-  results: [
-    { url: 'https://pokeapi.co/api/v2/pokemon/1/' },
-    { url: 'https://pokeapi.co/api/v2/pokemon/2/' },
-  ],
-};
-
-vi.mock('node-fetch', () => ({
-  default: vi.fn(() =>
-    Promise.resolve({
-      json: () => Promise.resolve(mockData),
-    })
-  ),
-}));
-globalThis.fetch = vi.fn() as Mock;
+vi.mock('./core/application/pokemon.service');
+const mockGetByRegion = getByRegion as Mock;
 
 const pokemonData = [
   {
@@ -66,29 +60,21 @@ const pokemonData = [
 
 describe('App Component', () => {
   beforeEach(() => {
-    // Mock the first API response (Pokemon list)
-    (fetch as Mock).mockResolvedValueOnce({
-      json: () => Promise.resolve(mockData),
-    });
-
-    // Mock the second API response (individual Pokemon details)
-    (fetch as Mock).mockResolvedValue({
-      json: () => Promise.resolve(pokemonData[0]),
-    });
-
-    (fetch as Mock).mockResolvedValueOnce({
-      json: () => Promise.resolve(pokemonData[1]),
-    });
+    mockGetByRegion.mockReset();
   });
 
-  test('renders Pokémon search input', () => {
-    render(<App />);
+  test('renders Pokémon search input', async () => {
+    await act(async () => {
+      render(<App />);
+    });
     const inputElement = screen.getByPlaceholderText(/search a pokémon.../i);
     expect(inputElement).toBeInTheDocument();
   });
 
   test('displays loading state while fetching data', async () => {
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
 
     expect(screen.getByText('Pokédex')).toBeInTheDocument();
 
@@ -98,8 +84,10 @@ describe('App Component', () => {
   });
 
   test('renders Pokémon data after fetch', async () => {
-    render(<App />);
-
+    mockGetByRegion.mockResolvedValue(pokemonData);
+    await act(async () => {
+      render(<App />);
+    });
     await waitFor(() => {
       expect(screen.getByText('bulbasaur')).toBeInTheDocument();
     });
@@ -110,52 +98,57 @@ describe('App Component', () => {
   });
 
   test('filters Pokémon data based on search query', async () => {
-    render(<App />);
+    mockGetByRegion.mockResolvedValue(pokemonData);
+    await act(async () => {
+      render(<App />);
+    });
 
     await waitFor(() => {
       expect(screen.queryByText('No results')).not.toBeInTheDocument();
     });
 
-    //userEvent.type -> todo
-    fireEvent.change(screen.getByPlaceholderText('Search a Pokémon...'), {
-      target: { value: 'bul' },
-    });
+    await userEvent.type(
+      screen.getByPlaceholderText('Search a Pokémon...'),
+      'bul'
+    );
 
     expect(screen.getByText('bulbasaur')).toBeInTheDocument();
 
-    expect(screen.queryByText('ivysaur')).not.toBeInTheDocument();
+    expect(screen.queryByText('ivysaur')).toBeNull();
   });
 
   test("displays 'No results' when no Pokémon match the search", async () => {
-    render(<App />);
+    mockGetByRegion.mockResolvedValue(pokemonData);
+    await act(async () => {
+      render(<App />);
+    });
 
     await waitFor(() => {
       expect(screen.queryByText('No results')).not.toBeInTheDocument();
     });
 
-    //userEvent.type -> todo
-    fireEvent.change(screen.getByPlaceholderText('Search a Pokémon...'), {
-      target: { value: 'xyz' },
-    });
+    await userEvent.type(
+      screen.getByPlaceholderText('Search a Pokémon...'),
+      'xyz'
+    );
 
     expect(screen.getByText('No results')).toBeInTheDocument();
   });
 
-  //   test.only('handles region dropdown interaction', async () => {
-  //     render(<App />);
+  test('handles region dropdown interaction', async () => {
+    mockGetByRegion.mockResolvedValue(pokemonData);
+    await act(async () => {
+      render(<App />);
+    });
 
-  //     await waitFor(() => {
-  //       expect(screen.queryByText('No results')).not.toBeInTheDocument();
-  //     });
+    await waitFor(() => {
+      expect(screen.queryByText('No results')).not.toBeInTheDocument();
+    });
 
-  //     expect(screen.getByRole('button')).toHaveTextContent('kanto');
+    await userEvent.click(screen.getByRole('button', { name: /kanto/i }));
+    await userEvent.click(screen.getByText('johto'));
 
-  //     await userEvent.click(screen.getByRole('button'));
-
-  //     expect(screen.getByText('johto')).toBeInTheDocument();
-
-  //     await userEvent.click(screen.getByText('johto'));
-
-  //     expect(screen.getByRole('button')).toHaveTextContent('johto');
-  //   });
+    expect(screen.getByRole('button')).toHaveTextContent('johto');
+    expect(mockGetByRegion).toHaveBeenCalledWith('johto');
+  });
 });
