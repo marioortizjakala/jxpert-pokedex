@@ -1,71 +1,22 @@
 import '@testing-library/jest-dom';
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-} from '@testing-library/react';
-import { App } from './App';
+import { render, screen, waitFor, act } from '@testing-library/react';
+import { Home } from '../Home';
 import { beforeEach, describe, expect, Mock, test, vi } from 'vitest';
 import { userEvent } from '@testing-library/user-event';
-import { getByRegion } from './core/application/pokemon.service';
+import { pokemonService } from '../../../../../core/application/pokemon.service';
+import { pokemonData } from '../__fixtures__/pokemonData';
 
-vi.mock('./core/application/pokemon.service');
-const mockGetByRegion = getByRegion as Mock;
+vi.mock('../../../../../core/application/pokemon.service');
+const mockGetByRegion = pokemonService.getByRegion as Mock;
 
-const pokemonData = [
-  {
-    id: 1,
-    name: 'bulbasaur',
-    types: [{ type: { name: 'grass' } }],
-    sprites: {
-      other: {
-        'official-artwork': {
-          front_default:
-            'https://img.pokemondb.net/artwork/large/bulbasaur.jpg',
-        },
-      },
-    },
-    stats: [
-      { base_stat: 45 },
-      { base_stat: 49 },
-      { base_stat: 49 },
-      { base_stat: 65 },
-      { base_stat: 65 },
-      { base_stat: 45 },
-    ],
-  },
-  {
-    id: 2,
-    name: 'ivysaur',
-    types: [{ type: { name: 'grass' } }],
-    sprites: {
-      other: {
-        'official-artwork': {
-          front_default: 'https://img.pokemondb.net/artwork/large/ivysaur.jpg',
-        },
-      },
-    },
-    stats: [
-      { base_stat: 60 },
-      { base_stat: 62 },
-      { base_stat: 63 },
-      { base_stat: 80 },
-      { base_stat: 80 },
-      { base_stat: 60 },
-    ],
-  },
-];
-
-describe('App Component', () => {
+describe('Home Component', () => {
   beforeEach(() => {
     mockGetByRegion.mockReset();
   });
 
   test('renders Pokémon search input', async () => {
     await act(async () => {
-      render(<App />);
+      render(<Home />);
     });
     const inputElement = screen.getByPlaceholderText(/search a pokémon.../i);
     expect(inputElement).toBeInTheDocument();
@@ -73,7 +24,7 @@ describe('App Component', () => {
 
   test('displays loading state while fetching data', async () => {
     await act(async () => {
-      render(<App />);
+      render(<Home />);
     });
 
     expect(screen.getByText('Pokédex')).toBeInTheDocument();
@@ -86,7 +37,7 @@ describe('App Component', () => {
   test('renders Pokémon data after fetch', async () => {
     mockGetByRegion.mockResolvedValue(pokemonData);
     await act(async () => {
-      render(<App />);
+      render(<Home />);
     });
     await waitFor(() => {
       expect(screen.getByText('bulbasaur')).toBeInTheDocument();
@@ -100,7 +51,7 @@ describe('App Component', () => {
   test('filters Pokémon data based on search query', async () => {
     mockGetByRegion.mockResolvedValue(pokemonData);
     await act(async () => {
-      render(<App />);
+      render(<Home />);
     });
 
     await waitFor(() => {
@@ -109,18 +60,18 @@ describe('App Component', () => {
 
     await userEvent.type(
       screen.getByPlaceholderText('Search a Pokémon...'),
-      'bul'
+      'ivy'
     );
 
-    expect(screen.getByText('bulbasaur')).toBeInTheDocument();
+    expect(screen.getByText('ivysaur')).toBeInTheDocument();
 
-    expect(screen.queryByText('ivysaur')).toBeNull();
+    expect(screen.queryByText('bulbasaur')).toBeNull();
   });
 
   test("displays 'No results' when no Pokémon match the search", async () => {
     mockGetByRegion.mockResolvedValue(pokemonData);
     await act(async () => {
-      render(<App />);
+      render(<Home />);
     });
 
     await waitFor(() => {
@@ -138,7 +89,7 @@ describe('App Component', () => {
   test('handles region dropdown interaction', async () => {
     mockGetByRegion.mockResolvedValue(pokemonData);
     await act(async () => {
-      render(<App />);
+      render(<Home />);
     });
 
     await waitFor(() => {

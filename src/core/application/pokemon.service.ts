@@ -1,11 +1,11 @@
-import { Pokemon, Region, regions } from '../domain/pokemon.model';
+import { Pokemon } from '../domain/pokemon.model';
+import { REGIONS } from '../domain/region.constants';
+import { Region } from '../domain/region.model';
 
-export const getByRegion = async (
-  region: Region
-): Promise<Pokemon[] | undefined> => {
+const getByRegion = async (region: Region): Promise<Pokemon[] | undefined> => {
   try {
     const { results } = await fetch(
-      `https://pokeapi.co/api/v2/pokemon?offset=${regions[region].offset}&limit=${regions[region].limit}`
+      `https://pokeapi.co/api/v2/pokemon?offset=${REGIONS[region].offset}&limit=${REGIONS[region].limit}`
     ).then((res) => res.json());
 
     const result = await Promise.all(
@@ -26,7 +26,7 @@ const convertor = ({ id, name, types, sprites, stats }) => ({
   stats,
 });
 
-export const getPokemon = async (url: string) => {
+const getPokemon = async (url: string) => {
   try {
     const result = await fetch(url).then(async (res) =>
       convertor(await res.json())
@@ -37,3 +37,5 @@ export const getPokemon = async (url: string) => {
     console.log(error);
   }
 };
+
+export const pokemonService = { getByRegion };
