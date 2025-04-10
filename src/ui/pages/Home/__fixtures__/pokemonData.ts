@@ -1,4 +1,4 @@
-import { Pokemon } from '../../../../core/domain/pokemon.model';
+import { Pokemon } from '@/core/domain/pokemon.model';
 
 export const pokemonData: Pokemon[] = [
   {
