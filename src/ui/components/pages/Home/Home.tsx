@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Region } from '@/core/domain/region.model';
 import SearchBar from '@/ui/components/molecules/searchBar/SearchBar';
 import PokemonCard from '@/ui/components/molecules/pokemonCard/PokemonCard';
