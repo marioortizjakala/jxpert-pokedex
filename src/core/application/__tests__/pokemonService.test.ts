@@ -1,4 +1,4 @@
-import { pokeApiRepository } from '@/core/infrastructure/pokeApiRepository';
+import { pokeApiRepository } from '@/core/infrastructure/pokeApiPokemonRepository';
 import { Region } from '@/core/domain/region.model';
 import { describe, expect, vi, beforeEach, Mock, test } from 'vitest';
 import { pokemonData } from '../__fixtures__/pokemonData';
