@@ -9,18 +9,19 @@ import Footer from '@/ui/components/footer/Footer';
 import CardSkelleton from '@/ui/components/skelletons/CardSkelleton';
 import { useFetchPokemonByRegion } from '@/hooks/useFetchPokemonByRegion';
 import { useFilteredPokemon } from '@/hooks/useFilteredPokemon';
+import { useDebounce } from '@/hooks/useDebounce';
+import Layout from '@/ui/components/layout/Layout';
 
 export const Home = () => {
   const [query, setQuery] = useState('');
   const [region, setRegion] = useState<Region>('kanto');
 
   const { data, loading, error } = useFetchPokemonByRegion(region);
-  const finalResult = useFilteredPokemon(data, query);
+  const debouncedQuery = useDebounce(query, 500);
+  const finalResult = useFilteredPokemon(data, debouncedQuery);
 
   return (
-    <div className="layout">
-      <Header title={'Pokédex'} />
-
+    <Layout>
       <main className="container">
         <SearchBar
           query={query}
@@ -40,15 +41,15 @@ export const Home = () => {
           {data.length > 0 && (
             <>
               {finalResult.map((res) => (
-                <PokemonCard pokemon={res} />
+                <PokemonCard pokemon={res} key={res.id} />
               ))}
             </>
           )}
         </section>
-        {finalResult.length === 0 && <p className="noresults">No results</p>}
+        {!loading && finalResult.length === 0 && (
+          <p className="noresults">No results</p>
+        )}
       </main>
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };

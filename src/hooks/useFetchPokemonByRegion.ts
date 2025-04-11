@@ -17,8 +17,10 @@ export const useFetchPokemonByRegion = (
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
+    if (loading) return;
     setLoading(true);
     setError(null);
+    setData([]);
     try {
       const result = await pokemonService.getByRegion(region);
       setData(result || []);
