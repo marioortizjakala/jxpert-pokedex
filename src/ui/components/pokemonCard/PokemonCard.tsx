@@ -1,47 +1,9 @@
 import { Pokemon } from '@/core/domain/pokemon.model';
-import bug from '@/assets/bug.svg';
-import dark from '@/assets/dark.svg';
-import dragon from '@/assets/dragon.svg';
-import electric from '@/assets/electric.svg';
-import fairy from '@/assets/fairy.svg';
-import fighting from '@/assets/fighting.svg';
-import fire from '@/assets/fire.svg';
-import flying from '@/assets/flying.svg';
-import ghost from '@/assets/ghost.svg';
-import grass from '@/assets/grass.svg';
-import ground from '@/assets/ground.svg';
-import ice from '@/assets/ice.svg';
-import normal from '@/assets/normal.svg';
-import poison from '@/assets/poison.svg';
-import psychic from '@/assets/psychic.svg';
-import rock from '@/assets/rock.svg';
-import steel from '@/assets/steel.svg';
-import water from '@/assets/water.svg';
+import { icons } from '../icons/PokemonIcons';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
 }
-
-const icons: any = {
-  bug,
-  dark,
-  dragon,
-  electric,
-  fairy,
-  fighting,
-  fire,
-  flying,
-  ghost,
-  grass,
-  ground,
-  ice,
-  normal,
-  poison,
-  psychic,
-  rock,
-  steel,
-  water,
-};
 
 const PokemonCard = ({ pokemon }: PokemonCardProps) => {
   const style = {
@@ -62,6 +24,7 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
         </div>
       </header>
       <img
+        loading="lazy"
         className="avatar"
         src={pokemon.sprites.other['official-artwork'].front_default}
       />

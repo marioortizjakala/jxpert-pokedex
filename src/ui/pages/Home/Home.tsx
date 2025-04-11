@@ -7,40 +7,16 @@ import SearchBar from '@/ui/components/searchBar/SearchBar';
 import PokemonCard from '@/ui/components/pokemonCard/PokemonCard';
 import Footer from '@/ui/components/footer/Footer';
 import CardSkelleton from '@/ui/components/skelletons/CardSkelleton';
+import { useFetchPokemonByRegion } from '@/hooks/useFetchPokemonByRegion';
+import { useFilteredPokemon } from '@/hooks/useFilteredPokemon';
 
 export const Home = () => {
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<Pokemon[]>([]);
-  const [finalResult, setFinalResult] = useState<Pokemon[]>([]);
   const [query, setQuery] = useState('');
   const [region, setRegion] = useState<Region>('kanto');
 
-  useEffect(() => {
-    const getData = async () => {
-      if (loading) return;
-      setLoading(true);
-      setResult([]);
-      try {
-        const result = await pokemonService.getByRegion(region);
-        setResult(result || []);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    getData();
-  }, [region]);
+  const { data, loading, error } = useFetchPokemonByRegion(region);
+  const finalResult = useFilteredPokemon(data, query);
 
-  useEffect(() => {
-    setFinalResult(
-      result.filter(
-        (res: Pokemon) =>
-          res.name.includes(query) ||
-          !!res.types.find((type) => type.type.name.startsWith(query))
-      )
-    );
-  }, [result, query]);
   return (
     <div className="layout">
       <Header title={'Pokédex'} />
@@ -61,7 +37,7 @@ export const Home = () => {
               ))}
             </>
           )}
-          {result.length > 0 && (
+          {data.length > 0 && (
             <>
               {finalResult.map((res) => (
                 <PokemonCard pokemon={res} />
