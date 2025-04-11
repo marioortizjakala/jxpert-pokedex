@@ -1,11 +1,7 @@
-import { useEffect, useState } from 'react';
-import { Pokemon } from '@/core/domain/pokemon.model';
+import { useState } from 'react';
 import { Region } from '@/core/domain/region.model';
-import { pokemonService } from '@/core/application/pokemon.service';
-import Header from '@/ui/components/header/Header';
 import SearchBar from '@/ui/components/searchBar/SearchBar';
 import PokemonCard from '@/ui/components/pokemonCard/PokemonCard';
-import Footer from '@/ui/components/footer/Footer';
 import CardSkelleton from '@/ui/components/skelletons/CardSkelleton';
 import { useFetchPokemonByRegion } from '@/hooks/useFetchPokemonByRegion';
 import { useFilteredPokemon } from '@/hooks/useFilteredPokemon';
@@ -16,7 +12,7 @@ export const Home = () => {
   const [query, setQuery] = useState('');
   const [region, setRegion] = useState<Region>('kanto');
 
-  const { data, loading, error } = useFetchPokemonByRegion(region);
+  const { data, loading } = useFetchPokemonByRegion(region);
   const debouncedQuery = useDebounce(query, 500);
   const finalResult = useFilteredPokemon(data, debouncedQuery);
 
