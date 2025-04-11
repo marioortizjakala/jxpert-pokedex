@@ -3,8 +3,8 @@ import { render, screen, waitFor, act } from '@testing-library/react';
 import { Home } from '../Home';
 import { beforeEach, describe, expect, Mock, test, vi } from 'vitest';
 import { userEvent } from '@testing-library/user-event';
-import { pokemonService } from '@/core/application/pokemon.service';
 import { pokemonData } from '../__fixtures__/pokemonData';
+import { pokemonService } from '@/core/application/pokemon.service';
 
 vi.mock('@/core/application/pokemon.service');
 const mockGetByRegion = pokemonService.getByRegion as Mock;
@@ -62,10 +62,10 @@ describe('Home Component', () => {
       screen.getByPlaceholderText('Search a Pokémon...'),
       'ivy'
     );
-
-    expect(screen.getByText('ivysaur')).toBeInTheDocument();
-
-    expect(screen.queryByText('bulbasaur')).toBeNull();
+    await waitFor(() => {
+      expect(screen.getByText('ivysaur')).toBeInTheDocument();
+      expect(screen.queryByText('bulbasaur')).toBeNull();
+    });
   });
 
   test("displays 'No results' when no Pokémon match the search", async () => {
@@ -83,7 +83,9 @@ describe('Home Component', () => {
       'xyz'
     );
 
-    expect(screen.getByText('No results')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('No results')).toBeInTheDocument();
+    });
   });
 
   test('handles region dropdown interaction', async () => {

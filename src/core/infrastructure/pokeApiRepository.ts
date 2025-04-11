@@ -28,11 +28,8 @@ const convertor = ({ id, name, types, sprites, stats }) => ({
 
 const getPokemon = async (url: string) => {
   try {
-    const result = await fetch(url).then(async (res) =>
-      convertor(await res.json())
-    );
-
-    return result;
+    const result = await fetch(url).then((res) => res.json());
+    return convertor(result);
   } catch (error) {
     console.log(error);
   }

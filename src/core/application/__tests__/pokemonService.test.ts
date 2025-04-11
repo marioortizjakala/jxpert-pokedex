@@ -1,11 +1,10 @@
-// __tests__/pokemonService.test.ts
-import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
-import { pokemonData } from '../__fixtures__/pokemonData';
-import { Region } from '@/core/domain/region.model';
 import { pokeApiRepository } from '@/core/infrastructure/pokeApiRepository';
+import { Region } from '@/core/domain/region.model';
+import { describe, expect, vi, beforeEach, Mock, test } from 'vitest';
+import { pokemonData } from '../__fixtures__/pokemonData';
 import { pokemonService } from '../pokemon.service';
 
-vi.mock('../infrastructure/pokeApiRepository', () => ({
+vi.mock('@/core/infrastructure/pokeApiRepository', () => ({
   pokeApiRepository: {
     getByRegion: vi.fn(),
   },
@@ -16,7 +15,7 @@ describe('pokemonService', () => {
     vi.clearAllMocks();
   });
 
-  it('calls getByRegion and returns the data', async () => {
+  test('calls getByRegion and returns the data', async () => {
     const region: Region = 'kanto';
     (pokeApiRepository.getByRegion as Mock).mockResolvedValue(pokemonData);
 
@@ -26,7 +25,7 @@ describe('pokemonService', () => {
     expect(result).toEqual(pokemonData);
   });
 
-  it('returns undefined if repository throws', async () => {
+  test('returns undefined if repository throws', async () => {
     const region: Region = 'johto';
     (pokeApiRepository.getByRegion as Mock).mockRejectedValue(
       new Error('API error')
