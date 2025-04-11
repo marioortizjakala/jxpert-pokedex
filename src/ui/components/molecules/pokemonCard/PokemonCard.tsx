@@ -1,5 +1,5 @@
 import { Pokemon } from '@/core/domain/pokemon.model';
-import { icons } from '../icons/PokemonIcons';
+import { icons } from '../../atoms/icons/PokemonIcons';
 
 interface PokemonCardProps {
   pokemon: Pokemon;

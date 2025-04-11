@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Region } from '@/core/domain/region.model';
-import SearchBar from '@/ui/components/searchBar/SearchBar';
-import PokemonCard from '@/ui/components/pokemonCard/PokemonCard';
-import CardSkelleton from '@/ui/components/skelletons/CardSkelleton';
+import SearchBar from '@/ui/components/molecules/searchBar/SearchBar';
+import PokemonCard from '@/ui/components/molecules/pokemonCard/PokemonCard';
+import CardSkelleton from '@/ui/components/atoms/skelletons/CardSkelleton';
 import { useFetchPokemonByRegion } from '@/hooks/useFetchPokemonByRegion';
 import { useFilteredPokemon } from '@/hooks/useFilteredPokemon';
 import { useDebounce } from '@/hooks/useDebounce';
-import Layout from '@/ui/components/layout/Layout';
+import Layout from '@/ui/components/templates/Layout';
 
 export const Home = () => {
   const [query, setQuery] = useState('');

@@ -1,8 +1,8 @@
 import { REGIONS } from '@/core/domain/region.constants';
 import { Region } from '@/core/domain/region.model';
 import { useState } from 'react';
-import VerticalChevronIcon from '@/ui/components/icons/VerticalChevron';
-import MagnifyingGlassIcon from '@/ui/components/icons/MagnifyingGlass';
+import VerticalChevronIcon from '@/ui/components/atoms/icons/VerticalChevron';
+import MagnifyingGlassIcon from '@/ui/components/atoms/icons/MagnifyingGlass';
 
 interface SearchBarProps {
   query: string;

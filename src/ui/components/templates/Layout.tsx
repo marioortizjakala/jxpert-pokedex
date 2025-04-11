@@ -1,5 +1,5 @@
-import Header from '../header/Header';
-import Footer from '../footer/Footer';
+import Footer from '../organisms/footer/Footer';
+import Header from '../organisms/header/Header';
 
 const Layout = ({ children }) => {
   return (

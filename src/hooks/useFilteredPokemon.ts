@@ -1,24 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { Pokemon } from '@/core/domain/pokemon.model';
 
 export const useFilteredPokemon = (data: Pokemon[], query: string) => {
-  const [filtered, setFiltered] = useState<Pokemon[]>([]);
+  const trimmedQuery = query.trim().toLowerCase();
 
-  useEffect(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) {
-      setFiltered(data);
-      return;
-    }
-
-    const result = data.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.types.some((type) => type.type.name.startsWith(q))
-    );
-
-    setFiltered(result);
-  }, [data, query]);
+  const filtered = useMemo(
+    () =>
+      data.filter(
+        (res) =>
+          res.name.toLowerCase().includes(trimmedQuery) ||
+          !!res.types.find((type) => type.type.name.startsWith(query))
+      ),
+    [trimmedQuery, data]
+  );
 
   return filtered;
 };
