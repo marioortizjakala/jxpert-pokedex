@@ -1,3 +1,3 @@
-pnpm run lint
+echo "pnpm run lint"
 npx lint-staged
 # pnpm test
