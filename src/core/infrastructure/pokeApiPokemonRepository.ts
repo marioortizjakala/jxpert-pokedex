@@ -1,10 +1,12 @@
 import { Pokemon } from '../domain/pokemon.model';
-import { PokemonDTO } from '../domain/pokemonRepository';
+import { PokemonRepository } from '../domain/pokemonRepository';
 import { REGIONS } from '../domain/region.constants';
 import { Region } from '../domain/region.model';
-import { PokemonDataDTO } from './pokeApiDTO';
+import { PokemonDataDTO, PokemonDTO } from './pokeApiDTO';
 
-const getByRegion = async (region: Region): Promise<Pokemon[] | undefined> => {
+const getByRegion: PokemonRepository['getByRegion'] = async (
+  region: Region
+): Promise<Pokemon[] | undefined> => {
   try {
     const { results }: PokemonDataDTO = await fetch(
       `https://pokeapi.co/api/v2/pokemon?offset=${REGIONS[region].offset}&limit=${REGIONS[region].limit}`
@@ -35,7 +37,7 @@ const convertor = ({
   stats,
 });
 
-const getPokemon = async (url: string) => {
+const getPokemon: PokemonRepository['getPokemon'] = async (url: string) => {
   try {
     const result: PokemonDTO = await fetch(url).then((res) => res.json());
     return convertor(result);
