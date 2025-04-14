@@ -1,1 +1,1 @@
-echo "pnpm vitest run"
+pnpm vitest run
