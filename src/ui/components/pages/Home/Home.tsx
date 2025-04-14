@@ -12,7 +12,7 @@ export const Home = () => {
   const [query, setQuery] = useState('');
   const [region, setRegion] = useState<Region>('kanto');
 
-  const { data, loading } = useFetchPokemonByRegion(region);
+  const { data, loading, error } = useFetchPokemonByRegion(region);
   const debouncedQuery = useDebounce(query, 500);
   const finalResult = useFilteredPokemon(data, debouncedQuery);
 
@@ -26,6 +26,7 @@ export const Home = () => {
           setRegion={setRegion}
         />
 
+        {error && <p className="noresults">{error}</p>}
         <section className="grid">
           {loading && (
             <>
@@ -42,7 +43,7 @@ export const Home = () => {
             </>
           )}
         </section>
-        {!loading && finalResult.length === 0 && (
+        {!loading && !error && finalResult.length === 0 && (
           <p className="noresults">No results</p>
         )}
       </main>

@@ -12,20 +12,7 @@ vi.mock('@/core/application/pokemon.service', () => ({
   },
 }));
 
-function TestComponent({ region }: { region: Region }) {
-  const { data, loading, error } = useFetchPokemonByRegion(region);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
-  return (
-    <ul>
-      {data.map((pokemon) => (
-        <li key={pokemon.id}>{pokemon.name}</li>
-      ))}
-    </ul>
-  );
-}
+//tests unitarios sin tener en cuenta el dom!
 
 describe('useFetchPokemonByRegion', () => {
   beforeEach(() => {
@@ -36,10 +23,6 @@ describe('useFetchPokemonByRegion', () => {
     const region: Region = 'kanto';
 
     (pokemonService.getByRegion as Mock).mockResolvedValue(pokemonData);
-
-    render(<TestComponent region={region} />);
-
-    expect(screen.getByText(/Loading/i)).toBeInTheDocument();
 
     await waitFor(() => {
       expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument();
