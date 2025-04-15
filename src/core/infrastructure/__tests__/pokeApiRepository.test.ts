@@ -2,7 +2,7 @@ import { PokeApiPokemonRepository } from '@/core/infrastructure/pokeApiPokemonRe
 const pokeApiRepository = new PokeApiPokemonRepository();
 import { Region } from '@/core/domain/region.model';
 import { REGIONS } from '@/core/domain/region.constants';
-import { describe, expect, vi, beforeEach, Mock, test } from 'vitest';
+import { Mock } from 'vitest';
 import { mockPokemonData, pokemonData } from '../__fixtures__/pokemonData';
 
 global.fetch = vi.fn();
@@ -59,10 +59,6 @@ describe('pokeApiRepository', () => {
     (global.fetch as Mock).mockResolvedValueOnce({
       json: async () => mockPokemonData,
     });
-
-    // (global.fetch as Mock).mockResolvedValueOnce({
-    //   json: async () => pokemonData[0],
-    // });
 
     (global.fetch as Mock).mockRejectedValueOnce(new Error('Fetch failed'));
 

@@ -1,6 +1,5 @@
 import { useFilteredPokemon } from '../useFilteredPokemon';
-import { render, renderHook, screen } from '@testing-library/react';
-import { describe, test, expect } from 'vitest';
+import { renderHook } from '@testing-library/react';
 import { pokemonData } from '../__fixtures__/pokemonData';
 
 describe('useFilteredPokemon', () => {

@@ -1,13 +1,4 @@
 import '@testing-library/jest-dom';
-import {
-  describe,
-  it,
-  expect,
-  vi,
-  beforeEach,
-  afterEach,
-  afterAll,
-} from 'vitest';
 import { act, renderHook } from '@testing-library/react';
 import { useDebounce } from '../useDebounce';
 

@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { Home } from '../Home';
-import { beforeEach, describe, expect, Mock, test, vi } from 'vitest';
 import { userEvent } from '@testing-library/user-event';
 import { pokemonData } from '../__fixtures__/pokemonData';
 import { pokemonService } from '@/core/application/pokemon.service';
+import { Mock } from 'vitest';
 
 vi.mock('@/core/application/pokemon.service');
 const mockGetByRegion = pokemonService.getByRegion as Mock;

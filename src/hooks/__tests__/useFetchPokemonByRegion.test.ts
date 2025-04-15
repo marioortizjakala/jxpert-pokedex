@@ -1,5 +1,5 @@
 import { useFetchPokemonByRegion } from '../useFetchPokemonByRegion';
-import { vi, describe, test, expect, beforeEach, Mock } from 'vitest';
+import { Mock } from 'vitest';
 import { pokemonService } from '@/core/application/pokemon.service';
 import { Region } from '@/core/domain/region.model';
 import { pokemonData } from '../__fixtures__/pokemonData';
