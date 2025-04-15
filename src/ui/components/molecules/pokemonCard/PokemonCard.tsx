@@ -7,7 +7,7 @@ interface PokemonCardProps {
 
 const PokemonCard = ({ pokemon }: PokemonCardProps) => {
   const style = {
-    '--color-type': `var(--color-${pokemon.types[0].type.name})`,
+    '--color-type': `var(--color-${pokemon.types[0]})`,
   } as React.CSSProperties;
 
   return (
@@ -17,17 +17,13 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
           <p>#{pokemon.id.toString().padStart(3, '0')}</p>
         </div>
         <div className="head__section">
-          <img src={icons[pokemon.types[0].type.name]} className="type" />
+          <img src={icons[pokemon.types[0]]} className="type" />
           {pokemon.types[1] && (
-            <img src={icons[pokemon.types[1].type.name]} className="type" />
+            <img src={icons[pokemon.types[1]]} className="type" />
           )}
         </div>
       </header>
-      <img
-        loading="lazy"
-        className="avatar"
-        src={pokemon.sprites.other['official-artwork'].front_default}
-      />
+      <img loading="lazy" className="avatar" src={pokemon.image} />
       <section className="main-content">
         <h3 className="name">{pokemon.name}</h3>
         <ul className="stats">
@@ -37,9 +33,9 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
                 <p className="stat__name">
                   {['Hp', 'At', 'Df', 'SpA', 'SpD', 'Spd'][index]}
                 </p>
-                <p>{stat.base_stat}</p>
+                <p>{stat.value}</p>
               </div>
-              <progress value={stat.base_stat} max="255" />
+              <progress value={stat.value} max="255" />
             </li>
           ))}
         </ul>

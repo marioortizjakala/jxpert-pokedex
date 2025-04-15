@@ -9,5 +9,8 @@ export default {
   test: {
     globals: true,
     environment: 'jsdom',
+    coverage: {
+      provider: 'istanbul', // or 'v8'
+    },
   },
 };

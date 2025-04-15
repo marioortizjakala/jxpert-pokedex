@@ -25,7 +25,6 @@ export const useFetchPokemonByRegion = (
       const result = await pokemonService.getByRegion(region);
       setData(result || []);
     } catch (err) {
-      console.error(err);
       setError('Failed to fetch Pokémon data.');
     } finally {
       setLoading(false);
