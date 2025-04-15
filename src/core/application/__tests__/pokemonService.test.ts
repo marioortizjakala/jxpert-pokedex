@@ -1,13 +1,5 @@
 import { pokemonService } from '@/core/application/pokemon.service';
-import {
-  describe,
-  test,
-  expect,
-  vi,
-  beforeEach,
-  beforeAll,
-  Mock,
-} from 'vitest';
+import { describe, test, expect, vi, beforeEach, beforeAll } from 'vitest';
 import { Region } from '@/core/domain/region.model';
 import { pokemonData } from '../__fixtures__/pokemonData';
 import { PokeApiPokemonRepository } from '@/core/infrastructure/pokeApiPokemonRepository';

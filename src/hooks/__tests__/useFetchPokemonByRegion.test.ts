@@ -3,7 +3,7 @@ import { vi, describe, test, expect, beforeEach, Mock } from 'vitest';
 import { pokemonService } from '@/core/application/pokemon.service';
 import { Region } from '@/core/domain/region.model';
 import { pokemonData } from '../__fixtures__/pokemonData';
-import { render, screen, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import { act, renderHook } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
