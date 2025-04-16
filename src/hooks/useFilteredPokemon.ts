@@ -7,8 +7,6 @@ export const useFilteredPokemon = (data: Pokemon[], query: string) => {
   const filtered = useMemo(
     () =>
       data.filter((res) => {
-        console.log(res);
-
         return (
           res.name.toLowerCase().includes(trimmedQuery) ||
           !!res.types.includes(query)

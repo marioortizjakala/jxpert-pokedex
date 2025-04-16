@@ -11,6 +11,18 @@ export default {
     environment: 'jsdom',
     coverage: {
       provider: 'istanbul', // or 'v8'
+      exclude: [
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/__fixtures__/**',
+        '**/vite.config.ts',
+        '**/vitest.config.ts',
+        '**/pokeApiDTO.ts',
+        '**/App.tsx',
+        '**/main.tsx',
+        '**/Router.tsx',
+        // '**/*.d.ts',
+      ],
     },
   },
 };
