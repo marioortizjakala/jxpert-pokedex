@@ -40,7 +40,7 @@ export const pokemonData: Pokemon[] = [
 
   {
     id: 4,
-    name: 'charmander',
+    name: 'charmeleon',
     types: ['fire'],
     image: 'https://img.pokemondb.net/artwork/large/charmander.jpg',
     stats: [
