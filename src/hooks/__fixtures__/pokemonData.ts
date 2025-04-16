@@ -8,43 +8,66 @@ export const pokemonData: Pokemon[] = [
   {
     id: 1,
     name: 'bulbasaur',
-    types: [{ type: { name: 'grass' } }],
-    sprites: {
-      other: {
-        'official-artwork': {
-          front_default:
-            'https://img.pokemondb.net/artwork/large/bulbasaur.jpg',
-        },
-      },
-    },
+    types: ['grass'],
+    image: 'https://img.pokemondb.net/artwork/large/bulbasaur.jpg',
     stats: [
-      { base_stat: 45 },
-      { base_stat: 49 },
-      { base_stat: 49 },
-      { base_stat: 65 },
-      { base_stat: 65 },
-      { base_stat: 45 },
+      {
+        value: 45,
+        name: 'hp',
+      },
+      {
+        value: 49,
+        name: 'attack',
+      },
+      {
+        value: 49,
+        name: 'defense',
+      },
+      {
+        value: 65,
+        name: 'special-attack',
+      },
+      {
+        value: 65,
+        name: 'special-defense',
+      },
+      {
+        value: 45,
+        name: 'speed',
+      },
     ],
   },
+
   {
     id: 4,
     name: 'charmander',
-    types: [{ type: { name: 'fire' } }],
-    sprites: {
-      other: {
-        'official-artwork': {
-          front_default:
-            'https://img.pokemondb.net/artwork/large/charmander.jpg',
-        },
-      },
-    },
+    types: ['fire'],
+    image: 'https://img.pokemondb.net/artwork/large/charmander.jpg',
     stats: [
-      { base_stat: 39 },
-      { base_stat: 52 },
-      { base_stat: 43 },
-      { base_stat: 60 },
-      { base_stat: 50 },
-      { base_stat: 65 },
+      {
+        value: 39,
+        name: 'hp',
+      },
+      {
+        value: 52,
+        name: 'attack',
+      },
+      {
+        value: 43,
+        name: 'defense',
+      },
+      {
+        value: 60,
+        name: 'special-attack',
+      },
+      {
+        value: 50,
+        name: 'special-defense',
+      },
+      {
+        value: 65,
+        name: 'speed',
+      },
     ],
   },
 ];

@@ -5,11 +5,11 @@ import { pokemonData } from '../__fixtures__/pokemonData';
 describe('useFilteredPokemon', () => {
   test('filters by name (case-insensitive)', () => {
     const { result } = renderHook(() =>
-      useFilteredPokemon(pokemonData, 'bulb')
+      useFilteredPokemon(pokemonData, 'char')
     );
 
     expect(result.current).toEqual(
-      expect.arrayContaining([expect.objectContaining({ name: 'bulbasaur' })])
+      expect.arrayContaining([expect.objectContaining({ name: 'charmander' })])
     );
   });
 
