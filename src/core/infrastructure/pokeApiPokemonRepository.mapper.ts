@@ -1,8 +1,6 @@
 import { Pokemon } from '../domain/pokemon.model';
 import { PokemonDTO } from './pokeApiDTO';
 
-//check mapper
-
 const statNameMap = {
   hp: 'Hp',
   attack: 'At',

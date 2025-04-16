@@ -7,7 +7,7 @@ export const mockPokemonData = {
 export const pokemonData: Pokemon[] = [
   {
     id: 1,
-    name: 'ivysaur',
+    name: 'bulbasaur',
     types: ['grass'],
     image: 'https://img.pokemondb.net/artwork/large/bulbasaur.jpg',
     stats: [
@@ -40,7 +40,7 @@ export const pokemonData: Pokemon[] = [
 
   {
     id: 4,
-    name: 'charmeleon',
+    name: 'charmander',
     types: ['fire'],
     image: 'https://img.pokemondb.net/artwork/large/charmander.jpg',
     stats: [

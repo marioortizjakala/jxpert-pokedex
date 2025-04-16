@@ -8,35 +8,36 @@ export const mockPokemonData = {
 export const pokemonData: Pokemon[] = [
   {
     id: 1,
+    image:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
     name: 'bulbasaur',
-    types: ['grass'],
-    image: 'https://img.pokemondb.net/artwork/large/bulbasaur.jpg',
     stats: [
       {
+        name: 'Hp',
         value: 45,
-        name: 'hp',
       },
       {
+        name: 'At',
         value: 49,
-        name: 'attack',
       },
       {
+        name: 'Df',
         value: 49,
-        name: 'defense',
       },
       {
+        name: 'SpA',
         value: 65,
-        name: 'special-attack',
       },
       {
+        name: 'SpD',
         value: 65,
-        name: 'special-defense',
       },
       {
+        name: 'Spd',
         value: 45,
-        name: 'speed',
       },
     ],
+    types: ['grass', 'poison'],
   },
 ];
 
