@@ -22,7 +22,7 @@ const mapPokemon = ({
   id,
   name,
   types: types.map((e) => e.type.name),
-  image: sprites.other['official-artwork'].front_default,
+  image: sprites.other?.['official-artwork'].front_default || '',
   stats: stats.map((stat) => ({
     value: stat.base_stat,
     name: statNameMap[stat.stat.name],

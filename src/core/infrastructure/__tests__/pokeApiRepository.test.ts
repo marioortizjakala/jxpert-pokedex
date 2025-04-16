@@ -1,9 +1,10 @@
+import { pokeApiMapper } from './../pokeApiPokemonRepository.mapper';
 import { PokeApiPokemonRepository } from '@/core/infrastructure/pokeApiPokemonRepository';
 const pokeApiRepository = new PokeApiPokemonRepository();
 import { Region } from '@/core/domain/region.model';
 import { REGIONS } from '@/core/domain/region.constants';
 import { Mock } from 'vitest';
-import { mockPokemonData, pokemonData } from '../__fixtures__/pokemonData';
+import { mockPokemonData, pokemonApiData } from '../__fixtures__/pokemonData';
 
 global.fetch = vi.fn();
 
@@ -18,7 +19,7 @@ describe('pokeApiRepository', () => {
         json: () => Promise.resolve(mockPokemonData),
       })
       .mockResolvedValueOnce({
-        json: () => Promise.resolve(pokemonData[0]),
+        json: () => Promise.resolve(pokemonApiData[0]),
       });
 
     const region: Region = 'kanto';
@@ -33,7 +34,7 @@ describe('pokeApiRepository', () => {
       'https://pokeapi.co/api/v2/pokemon/1/'
     );
 
-    expect(result).toEqual(pokemonData);
+    expect(result).toEqual([pokeApiMapper.mapPokemon(pokemonApiData[0])]);
   });
 
   test('handles errors when fetch fails', async () => {
@@ -54,18 +55,20 @@ describe('pokeApiRepository', () => {
     expect(errorCaught).toBe(true);
   });
 
-  test('should filter out undefined if getPokemon fails for one', async () => {
+  test('should throw if any getPokemon call fails', async () => {
     const region: Region = 'kanto';
-    (global.fetch as Mock).mockResolvedValueOnce({
-      json: async () => mockPokemonData,
-    });
-
-    (global.fetch as Mock).mockRejectedValueOnce(new Error('Fetch failed'));
-
-    const result = await pokeApiRepository.getByRegion(region);
-
-    expect(result).toHaveLength(0);
-    expect(result[0]).toBe(undefined);
+    (global.fetch as Mock)
+      .mockResolvedValueOnce({
+        json: async () => mockPokemonData,
+      })
+      .mockResolvedValueOnce({
+        json: async () => {
+          throw new Error('Simulated JSON error');
+        },
+      });
+    await expect(pokeApiRepository.getByRegion(region)).rejects.toThrow(
+      'Simulated JSON error'
+    );
   });
 
   test('handles empty response from API', async () => {
