@@ -28,6 +28,8 @@ export default [
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
+      'no-multiple-empty-lines': ['error', { max: 1 }],
+      'object-curly-newline': ['error', { multiline: true, consistent: true }],
       'no-unused-vars': [
         'warn',
         { vars: 'all', args: 'after-used', ignoreRestSiblings: true },
