@@ -1,13 +1,22 @@
+import styled from 'styled-components';
 import Footer from '../organisms/footer/Footer';
 import Header from '../organisms/header/Header';
 
+const LayoutStyled = styled.div`
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: ${({ theme }) => theme.spacing['4xl']} 1fr ${({
+      theme,
+    }) => theme.spacing['4xl']};
+`;
+
 const Layout = ({ children }) => {
   return (
-    <div className="layout">
+    <LayoutStyled className="layout">
       <Header title={'Pokédex'} />
       {children}
       <Footer />
-    </div>
+    </LayoutStyled>
   );
 };
 

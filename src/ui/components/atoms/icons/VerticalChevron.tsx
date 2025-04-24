@@ -1,6 +1,16 @@
+import styled from 'styled-components';
+
+const StyledSvg = styled.svg`
+  path {
+    stroke: ${({ theme }) => theme.colors.background6};
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+`;
+
 function VerticalChevron() {
   return (
-    <svg
+    <StyledSvg
       width="16"
       height="16"
       viewBox="0 0 16 16"
@@ -21,7 +31,7 @@ function VerticalChevron() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-    </svg>
+    </StyledSvg>
   );
 }
 

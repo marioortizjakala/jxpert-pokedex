@@ -1,4 +1,6 @@
-export const theme = {
+import { DefaultTheme } from 'styled-components';
+
+export const theme: DefaultTheme = {
   colors: {
     background0: '#FFFFFF',
     background05: '#F5F4F5',
@@ -132,18 +134,9 @@ export const theme = {
     mobile: '768px',
   },
   shadows: {
-    s: {
-      'box-shadow': `0px 5px 10px -2px rgba(125, 59, 236, 0.15), 0px 2px 3px -1px rgba(125, 59, 236, 0.07)`,
-      'border-radius': '16px',
-    },
-    m: {
-      'box-shadow': `0px 10px 15px -3px rgba(125, 59, 236, 0.1), 0px 4px 6px -2px rgba(125, 59, 236, 0.05)`,
-      'border-radius': '16px',
-    },
-    l: {
-      'box-shadow': `0px 15px 20px -5px rgba(125, 59, 236, 0.1), 0px 6px 8px -3px rgba(125, 59, 236, 0.05)`,
-      'border-radius': '16px',
-    },
+    s: `0px 5px 10px -2px rgba(125, 59, 236, 0.15), 0px 2px 3px -1px rgba(125, 59, 236, 0.07)`,
+    m: `0px 10px 15px -3px rgba(125, 59, 236, 0.1), 0px 4px 6px -2px rgba(125, 59, 236, 0.05)`,
+    l: `0px 15px 20px -5px rgba(125, 59, 236, 0.1), 0px 6px 8px -3px rgba(125, 59, 236, 0.05)`,
   },
   radius: {
     '2xs': '4px',
@@ -163,7 +156,7 @@ export const theme = {
     l: '20px',
     xl: '24px',
     '2xl': '32px',
-    '3xl': '32px',
-    '4xl': '32px',
+    '3xl': '40px',
+    '4xl': '64px',
   },
 };
