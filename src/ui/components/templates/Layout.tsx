@@ -5,9 +5,8 @@ import Header from '../organisms/header/Header';
 const LayoutStyled = styled.div`
   display: grid;
   min-height: 100vh;
-  grid-template-rows: ${({ theme }) => theme.spacing['4xl']} 1fr ${({
-      theme,
-    }) => theme.spacing['4xl']};
+  grid-template-rows: ${({ theme }) =>
+    `${theme.spacing['4xl']} 1fr theme.spacing['4xl']`};
 `;
 
 const Layout = ({ children }) => {
