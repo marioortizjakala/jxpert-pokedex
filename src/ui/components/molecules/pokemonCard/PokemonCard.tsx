@@ -15,7 +15,7 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
     '--color-type': `var(--color-${pokemon.types[0]})`,
   } as React.CSSProperties;
 
-  return null;
+  return;
 };
 
 export default PokemonCard;
