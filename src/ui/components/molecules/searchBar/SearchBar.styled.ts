@@ -5,14 +5,12 @@ export const SearchSectionStyled = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: min-content;
   padding: ${({ theme }) => `${theme.spacing.s} ${theme.spacing.l}`};
   background: ${({ theme }) => theme.colors.background1};
   border: 1px solid #c1bfc2;
   border-radius: ${({ theme }) => theme.radius.s};
   height: fit-content;
-  margin-top: ${({ theme }) => theme.spacing['4xl']};
-  width: max-content;
+  margin: ${({ theme }) => theme.spacing['4xl']};
   &:focus-within {
     border-color: ${({ theme }) => theme.colors.background9};
   }
@@ -39,11 +37,11 @@ export const DropDownButtonStyled = styled.button`
   position: relative;
 `;
 
-export const DropDownListStyled = styled.ol<{ show: boolean }>`
+export const DropDownListStyled = styled.ol<{ $show: boolean }>`
   box-sizing: border-box;
   box-shadow: ${({ theme }) => theme.shadows.s};
 
-  display: ${(props) => (props.show ? 'flex' : 'none')};
+  display: ${(props) => (props.$show ? 'flex' : 'none')};
   position: absolute;
   flex-direction: column;
   justify-content: space-around;
@@ -55,6 +53,7 @@ export const DropDownListStyled = styled.ol<{ show: boolean }>`
   border-radius: ${({ theme }) => theme.spacing.m};
   list-style: none;
   padding: ${({ theme }) => theme.spacing.s};
+  z-index: 4;
   & li {
     text-transform: capitalize;
     color: ${({ theme }) => theme.colors.background6};

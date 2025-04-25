@@ -1,21 +1,62 @@
 import { Pokemon } from '@/core/domain/pokemon.model';
 import { icons } from '../../atoms/icons/PokemonIcons';
-import styled from 'styled-components';
+import {
+  Card,
+  Figure,
+  Header,
+  Info,
+  StatBar,
+  StatLabel,
+  StatRow,
+  StatsList,
+  StatsSection,
+  StyledImage,
+  TypeBadge,
+  TypeList,
+} from './PokemonCard.styled';
 
-interface PokemonCardProps {
-  pokemon: Pokemon;
-}
+const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
+  const mainType = pokemon.types[0];
+  typeof pokemon.id !== 'number' && console.log(pokemon.id);
 
-const PokemonCardArticle = styled.article`
-  border: $;
-`;
+  return (
+    <Card $mainType={mainType}>
+      <Header>
+        <h2>{pokemon.name}</h2>
+        <Number>{`#${pokemon.id.toString()}`}</Number>
+      </Header>
 
-const PokemonCard = ({ pokemon }: PokemonCardProps) => {
-  const style = {
-    '--color-type': `var(--color-${pokemon.types[0]})`,
-  } as React.CSSProperties;
+      <Figure>
+        <StyledImage src={pokemon.image} alt="Bulbasaur" />
+      </Figure>
 
-  return;
+      <StatsSection aria-label="Stats">
+        <TypeList>
+          {pokemon.types.map((type) => (
+            <TypeBadge type={type} key={`${type}-${pokemon.id}`}>
+              <img src={icons[type]} alt={`${type} icon`} width={'20px'} />{' '}
+              {type}
+            </TypeBadge>
+          ))}
+        </TypeList>
+
+        <Info>
+          <span>⚖️ {pokemon.weight} kg</span>
+          <span>📏 {pokemon.height} m</span>
+        </Info>
+
+        <StatsList>
+          {pokemon.stats.map((stat) => (
+            <StatRow key={stat.name + '-' + pokemon.id}>
+              <StatLabel>{stat.name}</StatLabel>
+              <span>{stat.value}</span>
+              <StatBar value={stat.value} />
+            </StatRow>
+          ))}
+        </StatsList>
+      </StatsSection>
+    </Card>
+  );
 };
 
 export default PokemonCard;

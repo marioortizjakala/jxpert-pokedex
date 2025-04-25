@@ -9,4 +9,6 @@ export type Pokemon = {
   types: string[];
   image: string;
   stats: Stat[];
+  weight: number;
+  height: number;
 };

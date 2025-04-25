@@ -7,6 +7,21 @@ import { useFetchPokemonByRegion } from '@/hooks/useFetchPokemonByRegion';
 import { useFilteredPokemon } from '@/hooks/useFilteredPokemon';
 import { useDebounce } from '@/hooks/useDebounce';
 import Layout from '@/ui/components/templates/Layout';
+import styled from 'styled-components';
+
+const Main = styled.main`
+  margin: 0 auto;
+  max-width: 950px;
+  justify-content: center;
+`;
+
+const MainGrid = styled.section`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: ${({ theme }) => theme.spacing.l};
+  max-width: 1500px;
+  justify-content: center;
+`;
 
 export const Home = () => {
   const [query, setQuery] = useState('');
@@ -18,7 +33,7 @@ export const Home = () => {
 
   return (
     <Layout>
-      <main className="container">
+      <Main>
         <SearchBar
           query={query}
           setQuery={setQuery}
@@ -27,7 +42,7 @@ export const Home = () => {
         />
 
         {error && <p className="noresults">{error}</p>}
-        <section className="grid">
+        <MainGrid className="grid">
           {loading && (
             <>
               {Array.from({ length: 6 }, (_, index) => (
@@ -42,11 +57,11 @@ export const Home = () => {
               ))}
             </>
           )}
-        </section>
+        </MainGrid>
         {!loading && !error && finalResult.length === 0 && (
           <p className="noresults">No results</p>
         )}
-      </main>
+      </Main>
     </Layout>
   );
 };

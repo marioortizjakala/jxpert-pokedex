@@ -19,13 +19,13 @@ function Tick() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_2174_34)">
+      <g clipPath="url(#clip0_2174_34)">
         <path
           d="M3.33334 8L6.66667 11.3333L13.3333 4.66666"
-          stroke="#7D3BEC"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          // stroke="#7D3BEC"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>

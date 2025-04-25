@@ -16,6 +16,8 @@ const mapPokemon = ({
   types,
   sprites,
   stats,
+  weight,
+  height,
 }: PokemonDTO): Pokemon => ({
   id,
   name,
@@ -25,6 +27,8 @@ const mapPokemon = ({
     value: stat.base_stat,
     name: statNameMap[stat.stat.name],
   })),
+  height,
+  weight,
 });
 
 export const pokeApiMapper = { mapPokemon };

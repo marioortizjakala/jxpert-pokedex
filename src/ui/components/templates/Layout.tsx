@@ -7,6 +7,7 @@ const LayoutStyled = styled.div`
   min-height: 100vh;
   grid-template-rows: ${({ theme }) =>
     `${theme.spacing['4xl']} 1fr ${theme.spacing['4xl']}`};
+  justify-content: baseline;
 `;
 
 const Layout = ({ children }) => {

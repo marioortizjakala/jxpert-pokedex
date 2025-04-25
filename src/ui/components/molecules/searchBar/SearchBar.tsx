@@ -39,7 +39,7 @@ const SearchBar = ({ query, setQuery, region, setRegion }: SearchBarProps) => {
 
           <VerticalChevronIcon />
         </DropDownButtonStyled>
-        <DropDownListStyled show={showRegions}>
+        <DropDownListStyled $show={showRegions}>
           {(Object.keys(REGIONS) as Region[]).map((key) => (
             <li
               key={key}
