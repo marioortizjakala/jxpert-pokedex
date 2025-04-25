@@ -8,6 +8,8 @@ export const mockPokemonData = {
 export const pokemonData: Pokemon[] = [
   {
     id: 1,
+    height: 7,
+    weight: 69,
     image:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
     name: 'bulbasaur',
@@ -75,7 +77,6 @@ export const pokemonApiData: PokemonDTO[] = [
       },
     ],
     game_indices: [],
-    height: 7,
     held_items: [],
     id: 1,
     is_default: true,
@@ -422,6 +423,7 @@ export const pokemonApiData: PokemonDTO[] = [
         },
       },
     ],
+    height: 7,
     weight: 69,
   },
 ];

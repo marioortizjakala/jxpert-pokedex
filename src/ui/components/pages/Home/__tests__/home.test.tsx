@@ -5,6 +5,8 @@ import { userEvent } from '@testing-library/user-event';
 import { pokemonData } from '../__fixtures__/pokemonData';
 import { pokemonService } from '@/core/application/pokemon.service';
 import { Mock } from 'vitest';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '@/styles/theme';
 
 vi.mock('@/core/application/pokemon.service');
 const mockGetByRegion = pokemonService.getByRegion as Mock;
@@ -16,7 +18,11 @@ describe('Home Component', () => {
 
   test('renders Pokémon search input', async () => {
     await act(async () => {
-      render(<Home />);
+      render(
+        <ThemeProvider theme={theme}>
+          <Home />
+        </ThemeProvider>
+      );
     });
     const inputElement = screen.getByPlaceholderText(/search a pokémon.../i);
     expect(inputElement).toBeInTheDocument();
@@ -24,7 +30,11 @@ describe('Home Component', () => {
 
   test('displays loading state while fetching data', async () => {
     await act(async () => {
-      render(<Home />);
+      render(
+        <ThemeProvider theme={theme}>
+          <Home />
+        </ThemeProvider>
+      );
     });
 
     expect(screen.getByText('Pokédex')).toBeInTheDocument();
@@ -37,7 +47,11 @@ describe('Home Component', () => {
   test('renders Pokémon data after fetch', async () => {
     mockGetByRegion.mockResolvedValue(pokemonData);
     await act(async () => {
-      render(<Home />);
+      render(
+        <ThemeProvider theme={theme}>
+          <Home />
+        </ThemeProvider>
+      );
     });
     await waitFor(() => {
       expect(screen.getByText('bulbasaur')).toBeInTheDocument();
@@ -51,7 +65,11 @@ describe('Home Component', () => {
   test('filters Pokémon data based on search query', async () => {
     mockGetByRegion.mockResolvedValue(pokemonData);
     await act(async () => {
-      render(<Home />);
+      render(
+        <ThemeProvider theme={theme}>
+          <Home />
+        </ThemeProvider>
+      );
     });
 
     await waitFor(() => {
@@ -71,7 +89,11 @@ describe('Home Component', () => {
   test("displays 'No results' when no Pokémon match the search", async () => {
     mockGetByRegion.mockResolvedValue(pokemonData);
     await act(async () => {
-      render(<Home />);
+      render(
+        <ThemeProvider theme={theme}>
+          <Home />
+        </ThemeProvider>
+      );
     });
 
     await waitFor(() => {
@@ -91,7 +113,11 @@ describe('Home Component', () => {
   test('handles region dropdown interaction', async () => {
     mockGetByRegion.mockResolvedValue(pokemonData);
     await act(async () => {
-      render(<Home />);
+      render(
+        <ThemeProvider theme={theme}>
+          <Home />
+        </ThemeProvider>
+      );
     });
 
     await waitFor(() => {
