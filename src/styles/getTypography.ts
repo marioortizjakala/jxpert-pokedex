@@ -14,10 +14,10 @@ export const getTypographyCss =
       font-weight: ${styles.desktop.fontWeight};
       font-size: ${styles.desktop.fontSize};
       line-height: ${styles.desktop.lineHeight};
-  
-        @media (max-width: ${theme.breakpoints.mobile}) {
-          font-size: ${styles.mobile.fontSize};
-          line-height: ${styles.mobile.lineHeight};
-        }
-  }`;
+
+      @media (max-width: ${theme.breakpoints.mobile}) {
+        font-size: ${styles.mobile.fontSize};
+        line-height: ${styles.mobile.lineHeight};
+      }
+    `;
   };

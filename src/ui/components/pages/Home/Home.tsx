@@ -13,14 +13,15 @@ const Main = styled.main`
   margin: 0 auto;
   max-width: 950px;
   justify-content: center;
+  width: 100%;
 `;
 
 const MainGrid = styled.section`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
   gap: ${({ theme }) => theme.spacing.l};
-  max-width: 1500px;
   justify-content: center;
+  margin: 0 ${({ theme }) => theme.spacing.l};
 `;
 
 export const Home = () => {

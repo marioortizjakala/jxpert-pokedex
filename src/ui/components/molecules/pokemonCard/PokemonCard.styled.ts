@@ -1,3 +1,4 @@
+import { getTypographyCss } from '@/styles/getTypography';
 import styled from 'styled-components';
 
 export const Header = styled.header`
@@ -5,17 +6,19 @@ export const Header = styled.header`
   justify-content: space-between;
   color: white;
   align-items: center;
+  ${getTypographyCss('subheadline')}
   & h2 {
     margin: unset;
+    text-transform: capitalize;
   }
 `;
 
 export const Number = styled.span`
-  color: #d8f0d0;
+  color: ${({ theme }) => theme.colors.background0};
+  opacity: 70%;
 `;
 
 export const Card = styled.article<{ $mainType: string }>`
-  border: 1px solid ${({ theme }) => theme.colors.background2};
   border-radius: ${({ theme }) => theme.radius.m};
   padding: ${({ theme }) => theme.spacing.s};
   background-color: ${({ theme, $mainType }) => theme.colors[$mainType]};
@@ -40,6 +43,7 @@ export const TypeList = styled.ul`
   gap: 1rem;
   list-style: none;
   padding: 0;
+  width: 250px;
 `;
 
 export const TypeBadge = styled.li<{ type: string }>`
@@ -49,7 +53,9 @@ export const TypeBadge = styled.li<{ type: string }>`
 
   padding: ${({ theme }) => `${theme.spacing['2xs']} ${theme.spacing.xs}`};
   border-radius: ${({ theme }) => theme.radius.xl};
+  display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 export const Info = styled.address`
@@ -70,33 +76,41 @@ export const StatsSection = styled.section`
 `;
 
 export const StatRow = styled.li`
-  display: flex;
+  display: grid;
   align-items: center;
   margin: 0.3rem 0;
+  grid-template-columns: 40px 40px 1fr;
+  & span {
+    ${getTypographyCss('body')}
+  }
 `;
 
 export const StatLabel = styled.span`
-  width: 40px;
-  font-weight: bold;
+  ${getTypographyCss('body')}
+  color:${({ theme }) => theme.colors.background2};
   text-transform: uppercase;
 `;
 
-export const StatBar = styled.div<{ value: number }>`
-  background: #eee;
-  height: 6px;
-  flex: 1;
-  border-radius: 4px;
-  margin-left: 8px;
-  position: relative;
+export const StatBar = styled.progress`
+  width: 100%;
+  height: 8px;
+  appearance: none;
+  border-radius: ${({ theme }) => theme.radius.m};
   overflow: hidden;
 
-  &::after {
-    content: '';
-    display: block;
-    height: 100%;
-    width: ${(props) => (props.value / 255) * 100}%;
-    background: #000;
-    border-radius: 4px;
+  &::-webkit-progress-bar {
+    background-color: ${({ theme }) => theme.colors.background2};
+    border-radius: ${({ theme }) => theme.radius.m};
+  }
+
+  &::-webkit-progress-value {
+    background-color: ${({ theme }) => theme.colors.background9 || 'black'};
+    border-radius: ${({ theme }) => theme.radius.m};
+  }
+
+  &::-moz-progress-bar {
+    background-color: ${({ theme }) => theme.colors.background9 || 'black'};
+    border-radius: ${({ theme }) => theme.radius.m};
   }
 `;
 

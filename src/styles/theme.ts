@@ -13,6 +13,7 @@ export const theme: DefaultTheme = {
     background7: '#3F3D3F',
     background8: '#212021',
     background9: '#030303',
+    accent: '#7D3BEC',
     fighting: '#b44d54',
     fire: '#d36255',
     electric: '#ebd56c',

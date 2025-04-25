@@ -1,3 +1,4 @@
+import { getTypographyCss } from '@/styles/getTypography';
 import styled from 'styled-components';
 
 export const SearchSectionStyled = styled.section`
@@ -20,14 +21,20 @@ export const SearchInputStyled = styled.input`
   background-color: unset;
   border: none;
   margin-left: ${({ theme }) => theme.spacing.m};
+  flex-grow: 1;
+  ${getTypographyCss('caption')}
   &:focus-visible {
-    outline: unset;
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+    box-shadow: none;
   }
 `;
 
 export const DropDownButtonStyled = styled.button`
   background-color: ${({ theme }) => theme.colors.background3};
-  border-radius: ${({ theme }) => theme.radius['2xs']};
+  border-radius: ${({ theme }) => theme.radius.xs};
   border: 1px solid ${({ theme }) => theme.colors.background5};
   text-align: center;
   display: flex;
@@ -35,6 +42,7 @@ export const DropDownButtonStyled = styled.button`
   gap: ${({ theme }) => theme.spacing.m};
   margin: auto;
   position: relative;
+  ${getTypographyCss('caption')}
 `;
 
 export const DropDownListStyled = styled.ol<{ $show: boolean }>`

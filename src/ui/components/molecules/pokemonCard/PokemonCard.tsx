@@ -5,6 +5,7 @@ import {
   Figure,
   Header,
   Info,
+  Number,
   StatBar,
   StatLabel,
   StatRow,
@@ -17,13 +18,12 @@ import {
 
 const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
   const mainType = pokemon.types[0];
-  typeof pokemon.id !== 'number' && console.log(pokemon.id);
 
   return (
     <Card $mainType={mainType}>
       <Header>
         <h2>{pokemon.name}</h2>
-        <Number>{`#${pokemon.id.toString()}`}</Number>
+        <Number>{`#${pokemon.id.toString().padStart(3, '0')}`}</Number>
       </Header>
 
       <Figure>
@@ -49,8 +49,8 @@ const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
           {pokemon.stats.map((stat) => (
             <StatRow key={stat.name + '-' + pokemon.id}>
               <StatLabel>{stat.name}</StatLabel>
-              <span>{stat.value}</span>
-              <StatBar value={stat.value} />
+              <span>{stat.value.toString().padStart(3, '0')}</span>
+              <StatBar max="255" value={stat.value} />
             </StatRow>
           ))}
         </StatsList>
