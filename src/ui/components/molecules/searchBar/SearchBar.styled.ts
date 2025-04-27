@@ -1,5 +1,5 @@
 import { getTypographyCss } from '@/styles/getTypography';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const SearchSectionStyled = styled.section`
   box-sizing: border-box;
@@ -45,6 +45,17 @@ export const DropDownButtonStyled = styled.button`
   ${getTypographyCss('caption')}
 `;
 
+const slideUp = keyframes`
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
 export const DropDownListStyled = styled.ol<{ $show: boolean }>`
   box-sizing: border-box;
   box-shadow: ${({ theme }) => theme.shadows.s};
@@ -75,5 +86,15 @@ export const DropDownListStyled = styled.ol<{ $show: boolean }>`
     &.active {
       color: ${({ theme }) => theme.colors.background9};
     }
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    position: fixed;
+    background: ${({ theme }) => theme.colors.background1};
+    animation: ${({ $show }) => $show && slideUp} 0.3s ease-out forwards;
   }
 `;
