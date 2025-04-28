@@ -24,6 +24,10 @@ const MainGrid = styled.section`
   margin: 0 ${({ theme }) => theme.spacing.l};
 `;
 
+const Paragraph = styled.section`
+  text-align: center;
+`;
+
 export const Home = () => {
   const [query, setQuery] = useState('');
   const [region, setRegion] = useState<Region>('kanto');
@@ -42,7 +46,7 @@ export const Home = () => {
           setRegion={setRegion}
         />
 
-        {error && <p className="noresults">{error}</p>}
+        {error && <Paragraph className="noresults">{error}</Paragraph>}
         <MainGrid className="grid">
           {loading && (
             <>
@@ -60,7 +64,7 @@ export const Home = () => {
           )}
         </MainGrid>
         {!loading && !error && finalResult.length === 0 && (
-          <p className="noresults">No results</p>
+          <Paragraph className="noresults">No results</Paragraph>
         )}
       </Main>
     </Layout>

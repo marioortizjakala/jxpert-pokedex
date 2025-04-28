@@ -1,10 +1,10 @@
-import { getTypographyCss } from '@/styles/getTypography';
+import { getTypographyCss } from '@/ui/styles/getTypography';
 import styled from 'styled-components';
 
 export const Header = styled.header`
   display: flex;
   justify-content: space-between;
-  color: white;
+  color: ${({ theme }) => theme.colors.background0};
   align-items: center;
   ${getTypographyCss('subheadline')}
   & h2 {
@@ -27,7 +27,7 @@ export const Card = styled.article<{ $mainType: string }>`
 
 export const Figure = styled.figure`
   text-align: center;
-  margin: 1rem 0;
+  margin: ${({ theme }) => `${theme.spacing.xs} 0`};
   position: relative;
   margin-bottom: -80px;
   z-index: 1;
@@ -40,10 +40,9 @@ export const StyledImage = styled.img`
 export const TypeList = styled.ul`
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: ${({ theme }) => theme.spacing['2xs']};
   list-style: none;
   padding: 0;
-  width: 250px;
 `;
 
 export const TypeBadge = styled.li<{ type: string }>`
@@ -61,13 +60,10 @@ export const TypeBadge = styled.li<{ type: string }>`
 export const Info = styled.address`
   display: flex;
   justify-content: space-around;
-  font-style: normal;
-  font-size: 0.9rem;
-  margin: 1rem 0;
+  ${getTypographyCss('body')}
 `;
 
 export const StatsSection = styled.section`
-  font-size: 0.8rem;
   background-color: ${({ theme }) => theme.colors.background0};
   border-radius: ${({ theme }) => theme.radius.m};
   padding: ${({ theme }) =>
@@ -78,7 +74,7 @@ export const StatsSection = styled.section`
 export const StatRow = styled.li`
   display: grid;
   align-items: center;
-  margin: 0.3rem 0;
+  margin: ${({ theme }) => `${theme.spacing.xs} 0`};
   grid-template-columns: 40px 40px 1fr;
   & span {
     ${getTypographyCss('body')}
@@ -93,7 +89,7 @@ export const StatLabel = styled.span`
 
 export const StatBar = styled.progress`
   width: 100%;
-  height: 8px;
+  height: ${({ theme }) => theme.spacing.xs};
   appearance: none;
   border-radius: ${({ theme }) => theme.radius.m};
   overflow: hidden;
@@ -104,12 +100,12 @@ export const StatBar = styled.progress`
   }
 
   &::-webkit-progress-value {
-    background-color: ${({ theme }) => theme.colors.background9 || 'black'};
+    background-color: ${({ theme }) => theme.colors.background9};
     border-radius: ${({ theme }) => theme.radius.m};
   }
 
   &::-moz-progress-bar {
-    background-color: ${({ theme }) => theme.colors.background9 || 'black'};
+    background-color: ${({ theme }) => theme.colors.background9};
     border-radius: ${({ theme }) => theme.radius.m};
   }
 `;

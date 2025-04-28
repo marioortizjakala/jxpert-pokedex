@@ -1,5 +1,5 @@
-import { getTypographyCss } from '@/styles/getTypography';
-import styled, { keyframes } from 'styled-components';
+import { getTypographyCss } from '@/ui/styles/getTypography';
+import styled from 'styled-components';
 
 export const SearchSectionStyled = styled.section`
   box-sizing: border-box;
@@ -8,7 +8,8 @@ export const SearchSectionStyled = styled.section`
   align-items: center;
   padding: ${({ theme }) => `${theme.spacing.s} ${theme.spacing.l}`};
   background: ${({ theme }) => theme.colors.background1};
-  border: 1px solid #c1bfc2;
+  border: ${({ theme }) =>
+    `${theme.spacing['3xs']} solid ${theme.colors.background2}`};
   border-radius: ${({ theme }) => theme.radius.s};
   height: fit-content;
   margin: ${({ theme }) => theme.spacing['4xl']};
@@ -35,7 +36,8 @@ export const SearchInputStyled = styled.input`
 export const DropDownButtonStyled = styled.button`
   background-color: ${({ theme }) => theme.colors.background3};
   border-radius: ${({ theme }) => theme.radius.xs};
-  border: 1px solid ${({ theme }) => theme.colors.background5};
+  border: ${({ theme }) =>
+    `${theme.spacing['3xs']} solid ${theme.colors.background5}`};
   text-align: center;
   display: flex;
   padding: ${({ theme }) => `${theme.spacing['2xs']} ${theme.spacing.xs}`};
@@ -43,17 +45,6 @@ export const DropDownButtonStyled = styled.button`
   margin: auto;
   position: relative;
   ${getTypographyCss('caption')}
-`;
-
-const slideUp = keyframes`
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 `;
 
 export const DropDownListStyled = styled.ol<{ $show: boolean }>`
@@ -78,7 +69,8 @@ export const DropDownListStyled = styled.ol<{ $show: boolean }>`
     color: ${({ theme }) => theme.colors.background6};
     padding-bottom: ${({ theme }) => theme.spacing.xs};
     padding-right: ${({ theme }) => theme.spacing.l};
-    border-bottom: 1px solid ${({ theme }) => theme.colors.background3};
+    border-bottom: ${({ theme }) =>
+      `${theme.spacing['3xs']} solid ${theme.colors.background2}`};
     &:last-child {
       border-bottom: none;
       padding-bottom: unset;
@@ -88,13 +80,19 @@ export const DropDownListStyled = styled.ol<{ $show: boolean }>`
     }
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: flex;
     width: 100%;
     left: 0;
     right: 0;
     bottom: 0;
+    margin-bottom: 0;
     top: auto;
     position: fixed;
     background: ${({ theme }) => theme.colors.background1};
-    animation: ${({ $show }) => $show && slideUp} 0.3s ease-out forwards;
+    border-radius: ${({ theme }) => `${theme.radius.m}`};
+    padding: ${({ theme }) => `${theme.spacing.l}`};
+
+    transform: translateY(${({ $show }) => ($show ? '0%' : '100%')});
+    transition: transform 0.3s ease-out;
   }
 `;

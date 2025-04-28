@@ -6,7 +6,7 @@ import { pokemonData } from '../__fixtures__/pokemonData';
 import { pokemonService } from '@/core/application/pokemon.service';
 import { Mock } from 'vitest';
 import { ThemeProvider } from 'styled-components';
-import { theme } from '@/styles/theme';
+import { theme } from '@/ui/styles/theme';
 
 vi.mock('@/core/application/pokemon.service');
 const mockGetByRegion = pokemonService.getByRegion as Mock;
