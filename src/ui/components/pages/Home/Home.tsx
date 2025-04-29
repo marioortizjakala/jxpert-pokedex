@@ -38,7 +38,7 @@ export const Home = () => {
 
   return (
     <Layout>
-      <Main>
+      <Main id="main-content">
         <SearchBar
           query={query}
           setQuery={setQuery}

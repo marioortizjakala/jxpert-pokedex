@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Footer from '../organisms/footer/Footer';
 import Header from '../organisms/header/Header';
+import SkipLink from '../molecules/skipLink/SkipLink';
 
 const LayoutStyled = styled.div`
   display: grid;
@@ -13,6 +14,7 @@ const LayoutStyled = styled.div`
 const Layout = ({ children }) => {
   return (
     <LayoutStyled className="layout">
+      <SkipLink />
       <Header title={'Pokédex'} />
       {children}
       <Footer />
