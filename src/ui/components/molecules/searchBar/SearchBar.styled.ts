@@ -1,7 +1,7 @@
 import { getTypographyCss } from '@/ui/styles/getTypography';
 import styled from 'styled-components';
 
-export const SearchSectionStyled = styled.section`
+export const SearchSection = styled.section`
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -18,7 +18,7 @@ export const SearchSectionStyled = styled.section`
   }
 `;
 
-export const SearchInputStyled = styled.input`
+export const SearchInput = styled.input`
   background-color: unset;
   border: none;
   margin-left: ${({ theme }) => theme.spacing.m};
@@ -33,7 +33,7 @@ export const SearchInputStyled = styled.input`
   }
 `;
 
-export const DropDownButtonStyled = styled.button`
+export const DropDownButton = styled.button`
   background-color: ${({ theme }) => theme.colors.background3};
   border-radius: ${({ theme }) => theme.radius.xs};
   border: ${({ theme }) =>
@@ -47,7 +47,7 @@ export const DropDownButtonStyled = styled.button`
   ${getTypographyCss('caption')}
 `;
 
-export const DropDownListStyled = styled.ol<{ $show: boolean }>`
+export const DropDownList = styled.ol<{ $show: boolean }>`
   box-sizing: border-box;
   box-shadow: ${({ theme }) => theme.shadows.s};
 
@@ -91,6 +91,8 @@ export const DropDownListStyled = styled.ol<{ $show: boolean }>`
     background: ${({ theme }) => theme.colors.background1};
     border-radius: ${({ theme }) => `${theme.radius.m}`};
     padding: ${({ theme }) => `${theme.spacing.l}`};
+
+    pointer-events: ${({ $show }) => ($show ? 'auto' : 'none')};
 
     transform: translateY(${({ $show }) => ($show ? '0%' : '100%')});
     transition: transform 0.3s ease-out;

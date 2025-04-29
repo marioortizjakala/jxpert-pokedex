@@ -5,10 +5,10 @@ import VerticalChevronIcon from '@/ui/components/atoms/icons/VerticalChevron';
 import MagnifyingGlass from '@/ui/components/atoms/icons/MagnifyingGlass';
 import Tick from '../../atoms/icons/Tick';
 import {
-  DropDownButtonStyled,
-  DropDownListStyled,
-  SearchInputStyled,
-  SearchSectionStyled,
+  DropDownButton,
+  DropDownList,
+  SearchInput,
+  SearchSection,
 } from './SearchBar.styled';
 
 interface SearchBarProps {
@@ -22,27 +22,34 @@ const SearchBar = ({ query, setQuery, region, setRegion }: SearchBarProps) => {
   const [showRegions, setShowRegions] = useState(false);
 
   return (
-    <SearchSectionStyled className="search">
+    <SearchSection className="search">
       <MagnifyingGlass />
-      <SearchInputStyled
+      <SearchInput
         placeholder="Search a Pokémon..."
+        aria-label="Search Pokémon"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
 
       <div className="dropdown">
-        <DropDownButtonStyled
+        <DropDownButton
           className="dropdown__button"
           onClick={() => setShowRegions((prev) => !prev)}
+          aria-haspopup="listbox"
+          aria-expanded={showRegions}
+          aria-controls="region-dropdown"
         >
           <span>{region}</span>
 
           <VerticalChevronIcon />
-        </DropDownButtonStyled>
-        <DropDownListStyled $show={showRegions}>
-          {(Object.keys(REGIONS) as Region[]).map((key) => (
+        </DropDownButton>
+        <DropDownList $show={showRegions} aria-hidden={!showRegions}>
+          {(Object.keys(REGIONS) as Region[]).map((key, i) => (
             <li
               key={key}
+              role="option"
+              aria-selected={region === key}
+              tabIndex={0}
               className={region === key ? 'active' : ''}
               onClick={() => {
                 setRegion(key);
@@ -53,9 +60,9 @@ const SearchBar = ({ query, setQuery, region, setRegion }: SearchBarProps) => {
               {region === key && <Tick />}
             </li>
           ))}
-        </DropDownListStyled>
+        </DropDownList>
       </div>
-    </SearchSectionStyled>
+    </SearchSection>
   );
 };
 

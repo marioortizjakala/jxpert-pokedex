@@ -20,37 +20,50 @@ const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
   const mainType = pokemon.types[0];
 
   return (
-    <Card $mainType={mainType}>
+    <Card
+      $mainType={mainType}
+      tabIndex={0}
+      aria-label={`Details for ${pokemon.name}`}
+    >
       <Header>
         <h2>{pokemon.name}</h2>
         <Number>{`#${pokemon.id.toString().padStart(3, '0')}`}</Number>
       </Header>
 
       <Figure>
-        <StyledImage src={pokemon.image} alt="Bulbasaur" />
+        <StyledImage tabIndex={0} src={pokemon.image} alt={pokemon.name} />
       </Figure>
 
-      <StatsSection aria-label="Stats">
+      <StatsSection>
         <TypeList>
           {pokemon.types.map((type) => (
-            <TypeBadge type={type} key={`${type}-${pokemon.id}`}>
-              <img src={icons[type]} alt={`${type} icon`} width={'20px'} />{' '}
+            <TypeBadge type={type} key={`${type}-${pokemon.id}`} tabIndex={0}>
+              <img
+                src={icons[type]}
+                alt={`${type} icon`}
+                width={'20px'}
+                aria-hidden
+              />{' '}
               {type}
             </TypeBadge>
           ))}
         </TypeList>
 
         <Info>
-          <span>⚖️ {pokemon.weight} kg</span>
-          <span>📏 {pokemon.height} m</span>
+          <span tabIndex={0} aria-label={`Weight: ${pokemon.weight} kilograms`}>
+            ⚖️ {pokemon.weight} kg
+          </span>
+          <span tabIndex={0} aria-label={`Height: ${pokemon.height} meters`}>
+            📏 {pokemon.height} m
+          </span>
         </Info>
 
-        <StatsList>
+        <StatsList role="list" aria-label="Base stats" tabIndex={0}>
           {pokemon.stats.map((stat) => (
             <StatRow key={stat.name + '-' + pokemon.id}>
               <StatLabel>{stat.name}</StatLabel>
               <span>{stat.value.toString().padStart(3, '0')}</span>
-              <StatBar max="255" value={stat.value} />
+              <StatBar max="255" value={stat.value} aria-hidden />
             </StatRow>
           ))}
         </StatsList>
